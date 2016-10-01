@@ -141,11 +141,6 @@ def get_match_data(match_url):
     match['status'] = status
     print (match['status'])
 
-
-
-
-
-
     ########################################
 
     ### setting 'scorecard'

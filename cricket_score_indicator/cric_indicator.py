@@ -204,12 +204,6 @@ class CricInd:
        #    self.indicator.set_menu(self.scoreboardMenu)
         self.scoreboardMenu.popup(None,self.menu,None,None,0,0)
 
-
-
-
-
-
-
     # def change_icon_theme(self, widget):
     #     if DEBUG:
     #         if self.indicator.get_icon_theme_path() == DARK_ICONS:
@@ -487,6 +481,7 @@ class CricInd:
 
         match_id = match_item.get('id','No match_item')
 
+        # import ipdb;ipdb.set_trace()
         print 'Prev nots: ',self.nots
         if match_info is None:
             return
@@ -495,6 +490,7 @@ class CricInd:
             match_item['status'] = match_info['status']
             print "match_item status: " + match_item['status']
             match_item['last_ball'] = match_info['last_ball']
+            match_item['comms'] = match_info['comms']
 
             GObject.idle_add(self.update_menu_icon, match_item)
             GObject.idle_add(self.set_submenu_items, match_item, match_info)
@@ -520,7 +516,7 @@ class CricInd:
 
 
                 # )
-                if self.nots.get(match_id,None)!=match_item['gtk_menu'].get_label():
+                if self.nots.get(match_id,None)!=match_item['comms']:
                     while match_item['gtk_scorecard'].get_label().strip().lower()=='loading':
                         pass
                     self.notification.update(
@@ -533,7 +529,7 @@ class CricInd:
                     print 'Sending not: '+match_item['gtk_menu'].get_label()
 
                     self.notification.show()
-                    self.nots[match_id] = match_item['gtk_menu'].get_label()
+                    self.nots[match_id] = match_item['comms']
         # else:
 
         #     match_item['status'] = ""
